@@ -1,6 +1,7 @@
 import { MDXRemote } from "next-mdx-remote/rsc";
 import { getArticleBySlug } from "@/lib/supabase"; // Adjust path as needed
 import { getMDXComponents } from "@/components/MDXComponents"; // Adjust path as needed
+import Image from "next/image";
 
 // Define the type for the page component's props
 interface ArticlePageProps {
@@ -26,16 +27,18 @@ export default async function ArticlePage({ params }: ArticlePageProps) {
   }
 
   // Use the article's title for the page title
-  const { title, content } = article;
+  const { title, content, image_url } = article;
 
   // Renders the MDX content using the components defined in mdx-components.tsx
   return (
     <article className="max-w-4xl mx-auto p-8 bg-white shadow-lg rounded-lg">
       <h1 className="text-5xl font-extrabold text-gray-900 mb-6">{title}</h1>
-
-      {/* The MDXRemote component serializes the content string and renders it.
-        We pass the components to customize the output.
-      */}
+      <Image
+        src={article.image_url}
+        width={400}
+        height={400}
+        alt="Article Image"
+      />
       <div className="text-md leading-relaxed text-gray-800">
         <MDXRemote source={content} components={getMDXComponents()} />
       </div>

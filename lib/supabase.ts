@@ -1,4 +1,4 @@
-import { createClient, PostgrestError } from "@supabase/supabase-js";
+import { createClient } from "@supabase/supabase-js";
 import { ArticleData } from "../types/article"; // Adjust path as needed
 
 // Initialize Supabase Client (Make sure these ENV variables are set in your .env.local file)
@@ -16,7 +16,7 @@ export async function getArticleBySlug(
   // We specify the columns we want to select
   const { data, error } = await supabase
     .from("articles")
-    .select("title, content, slug")
+    .select("title, content, slug, image_url")
     .eq("slug", slug)
     .single(); // Use single() to expect exactly one row
 
